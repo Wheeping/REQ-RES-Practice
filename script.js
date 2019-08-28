@@ -1,11 +1,35 @@
-const reqresAPI = "https://reqres.in/api/users?page=";
+const reqresAPI = "https://reqres.in/api/users";
+let totalPages;
+let arrayLength;
 
-$.getJSON("https://reqres.in/api/users", function(passthrough){
-	let totalPages = passthrough.total_pages;
+//Finds the total amount of pages. Have to use seperate function to assign it.
+function findNumberOfPages(website){
+	$.getJSON(website, function(pulledJSON){
+		totalPages = pulledJSON.total_pages;
+	});
+}
+
+//Stupid function. Just thinking it out.
+/*function loopThroughPages(website){
+	findNumberOfPages(website);
 	let pageNumber = 1;
 	while (pageNumber <= totalPages){
+		pageNumber++;
+	}
+}*/
+
+//Finds the length of the array
+function findArrayLength(website, pageNumber){
+		$.getJSON(website + '?page=' + pageNumber, function(pulledJSON){
+			arrayLength = pulledJSON.data.length;
+	});
+}
+
+/*
+let pageNumber = 1;
+	while (pageNumber <= totalPages){
 		$.getJSON(reqresAPI + pageNumber, function(passthrough){
-			arrayLength = passthrough.data.length;
+			let arrayLength = passthrough.data.length;
 			let arrayNumber = 0;
 			while (arrayNumber < arrayLength)
 			{
@@ -35,84 +59,4 @@ $.getJSON("https://reqres.in/api/users", function(passthrough){
 		});
 		pageNumber++;
 	};
-});
-
-function sortTable(n) {
-  let row, i, x, y;
-  let shouldSwap = false;
-  let swapable = true;
-  let swapcount = 0;
-  const table = document.getElementById("userTable");
-  let dir = "asc";
-
-  while (swapable) {
-    swapable = false;
-    row = table.rows;
-    for (i = 1; i < (row.length - 1); i++) {
-      	shouldSwap = false;
-      	x = row[i].getElementsByTagName("TD")[n];
-      	y = row[i + 1].getElementsByTagName("TD")[n];
-      	if (dir === "asc") {
-        	if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          		shouldSwap= true;
-          		break;
-        	}
-      	} else if (dir === "desc") {
-        	if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          		shouldSwap = true;
-          		break;
-        	}
-      	}
-    }
-    if (shouldSwap) {
-      	row[i].parentNode.insertBefore(row[i + 1], row[i]);
-      	swapable = true;
-      	swapcount++;
-    } else {
-      	if (swapcount === 0 && dir === "asc") {
-        	dir = "desc";
-        	swapable = true;
-      	}
-    }
-  }
-}
-
-function sortId(n) {
-  let row, i, x, y;
-  let shouldSwap = false;
-  let swapable = true;
-  let swapcount = 0;
-  const table = document.getElementById("userTable");
-  let dir = "asc";
-
-  while (swapable) {
-	swapable = false;
-	row = table.rows;
-	for (i = 1; i < (row.length - 1); i++) {
-		shouldSwap = false;
-	    x = row[i].getElementsByTagName("TD")[n];
-	    y = row[i + 1].getElementsByTagName("TD")[n];
-	    if (dir === "asc"){
-	    	if (Number(x.innerHTML) > Number(y.innerHTML)) {
-	        	shouldSwap = true;
-	        	break;
-	      	}
-	  	} else if (dir === "desc") {
-	    	if (Number(x.innerHTML) < Number(y.innerHTML)) {
-	        	shouldSwap = true;
-	        	break;
-	      	}
-	    }
-	}
-	if (shouldSwap) {
-		row[i].parentNode.insertBefore(row[i + 1], row[i]);
-	    swapable = true;
-	    swapcount++;
-	} else {
-	   	if (swapcount === 0 && dir === "asc") {
-	    	dir = "desc";
-	    	swapable = true;
-	    }
-	}
-  }
-}
+	*/
