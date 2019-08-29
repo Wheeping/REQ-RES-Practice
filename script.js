@@ -70,49 +70,13 @@ function displayAllUsers(website, table){
 		findDataArrayLength(website, currentPage);
 		addRow(table);
 		let arrayNumber = 1;
+
 		while (arrayNumber <= arrayLength){
 			assignUserDataToRow(website, currentPage, arrayNumber)
 			arrayNumber++;
-		}
+		};
 		currentPage++;
-	}
-}
-/*------------END FUNCTIONS------------*/
-/*
-$.getJSON("https://reqres.in/api/users", function(passthrough){
-	let totalPages = passthrough.total_pages;
-	let pageNumber = 1;
-	while (pageNumber <= totalPages){
-		$.getJSON(reqresAPI + pageNumber, function(passthrough){
-			arrayLength = passthrough.data.length;
-			let arrayNumber = 0;
-			while (arrayNumber < arrayLength)
-			{
-				let gotId = passthrough.data[arrayNumber].id;
-				let gotEmail = passthrough.data[arrayNumber].email;
-				let gotFirstName = passthrough.data[arrayNumber].first_name;
-				let gotLastName = passthrough.data[arrayNumber].last_name;
-				let gotAvatar = passthrough.data[arrayNumber].avatar;
-				var img = document.createElement('img');
-    			img.src = gotAvatar;
-
-				var table = document.getElementById("userTable");
-				var row = table.insertRow(1);
-				var cellId = row.insertCell(0);
-				var cellEmail = row.insertCell(1);
-				var cellFirstName = row.insertCell(2);
-				var cellLastName = row.insertCell(3);
-				var cellAvatar = row.insertCell(4);
-				cellId.innerHTML = gotId;
-				cellEmail.innerHTML = gotEmail;
-				cellFirstName.innerHTML = gotFirstName;
-				cellLastName.innerHTML = gotLastName;
-				cellAvatar.appendChild(img);
-
-				arrayNumber++;
-			};
-		});
-		pageNumber++;
 	};
-});
-*/
+}
+
+/*------------END FUNCTIONS------------*/
